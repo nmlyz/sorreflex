@@ -27,6 +27,8 @@ def main():
         sys.exit(f"line is {len(LINE)} characters, gate needs 1-140")
     if "\n" in LINE or LINE != LINE.strip():
         sys.exit("line must be a single line with no surrounding space")
+    if any(ord(c) < 0x20 for c in LINE):
+        sys.exit("line must not contain control characters")
     data = LINE.encode("utf-8")
     os.makedirs(out_dir, exist_ok=True)
     with open(path, "wb") as f:
